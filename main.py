@@ -136,6 +136,71 @@ TEMP_VC_CHANNEL_ID = int(os.getenv("TEMP_VC_CHANNEL_ID", "1547225223588347984"))
 TEMP_VC_DEFAULT_LIMIT = int(os.getenv("TEMP_VC_DEFAULT_LIMIT", "0"))
 TEMP_VC_NAME_PREFIX = os.getenv("TEMP_VC_NAME_PREFIX", "🔊")
 
+# GRAND CITY RP TICKET / ROLE REQUEST SETTINGS
+VIP_TICKET_CATEGORY_ID = 1548438248651497554
+GENERAL_TICKET_CATEGORY_ID = 1548438340183920730
+ROLE_REQUESTS_CHANNEL_ID = 1548438074281824388
+TICKET_STAFF_ROLE_ID = int(os.getenv("TICKET_STAFF_ROLE_ID", "1547224805986533556"))
+TICKET_LOG_CHANNEL_ID = 1548438122889482491
+STAFF_APPLY_TICKET_CATEGORY_ID = 1548438412149657680
+GRAND_CITY_BANNER_URL = "https://cdn.discordapp.com/attachments/1315665568228966410/1548336389819465891/grdn_city_rp.jpg?ex=6aa6b022&is=6aa55ea2&hm=9d8878db34a5cd46c352e141c8ecde61f8d3f2719c178d676aabe43cd52df811&"
+
+# GRAND CITY RP SERVER TAG PANEL
+SERVER_TAG_RULES_CHANNEL_ID = 1547225152461344849
+SERVER_TAG_JOIN_TO_CREATE_CHANNEL_ID = 1547225223588347984
+SERVER_TAG_IMAGE_URL = "https://cdn.discordapp.com/attachments/1315665568228966410/1548447596203221123/image.png?ex=6aa717b3&is=6aa5c633&hm=fc8119f834787c456ae021e770e89f99c80d5d630d9aea96c0aa0f1b9657307e&"
+
+# Leave these empty and add your own Discord custom emojis later.
+SERVER_TAG_TITLE_EMOJI = ""       # Title emoji
+SERVER_TAG_HEART_EMOJI = ""       # Heart emoji
+SERVER_TAG_DESKTOP_EMOJI = ""     # Desktop emoji
+SERVER_TAG_MOBILE_EMOJI = ""      # Mobile emoji
+SERVER_TAG_RULES_EMOJI = ""       # Rules button emoji
+SERVER_TAG_JOIN_EMOJI = ""        # Join to Create button emoji
+SERVER_TAG_BADGE_EMOJI = ""       # Badge / tag emoji
+
+GRAND_CITY_ROLE_IDS = {
+    "mafia_boss": 1547224832406462566,
+    "mafia_agent": 1547224833694105723,
+    "chief_lspd": 1547224834860261456,
+    "lspd": 1547224835908706334,
+    "chief_sheriff": 1547715505362698342,
+    "sheriff": 1547715477990674522,
+    "chief_ems": 1547224836974051408,
+    "ems": 1547224838194860052,
+    "og_gang": 1547224844465209498,
+    "bloods": 1547224846650441840,
+    "ballas": 1547224848269312050,
+    "families": 1547224849506897950,
+    "vagos": 1547224850685239337,
+    "lost_mc": 1547581908651606127,
+    "mechanic_manager": 1547224839457083503,
+    "car_dealer_manager": 1547224865541455922,
+    "car_dealer": 1547304625806512129,
+    "pizzeria_manager": 1547224856163127326,
+    "pizzeria": 1547224857605840967,
+    "whitewidow_manager": 1547224862953570404,
+    "whitewidow": 1547224864044097588,
+    "cat_coffee_manager": 1548094520694935612,
+    "cat_coffee": 1548094609962442902,
+    "legal": 1547224869379244155,
+    "illegal": 1547224871971328031,
+}
+
+GRAND_CITY_ROLE_NAMES = {
+    "mafia_boss": "Mafia Boss", "mafia_agent": "Mafia Agent",
+    "chief_lspd": "Chief LSPD", "lspd": "LSPD",
+    "chief_sheriff": "Chief Sheriff", "sheriff": "Sheriff",
+    "chief_ems": "Chief EMS", "ems": "EMS",
+    "og_gang": "OG Gang", "bloods": "Bloods", "ballas": "Ballas",
+    "families": "Families", "vagos": "Vagos", "lost_mc": "Lost MC",
+    "mechanic_manager": "Mechanic Manager", "car_dealer_manager": "Car Dealer Manager",
+    "car_dealer": "Car Dealer", "pizzeria_manager": "Pizzeria Manager",
+    "pizzeria": "Pizzeria", "whitewidow_manager": "WhiteWidow Manager",
+    "whitewidow": "WhiteWidow", "cat_coffee_manager": "Cat Coffee Manager",
+    "cat_coffee": "Cat Coffee", "legal": "Legal", "illegal": "Illegal",
+}
+
 # CHANNEL IDS
 CHANNEL_IDS = {
     "news": 1482902413554745638,
@@ -300,8 +365,8 @@ TWEET_PANEL_IMAGE_URL = os.getenv("TWEET_PANEL_IMAGE_URL", COMMUNITY_IMAGE_URL)
 
 IMAGES = {
     "moon_logo": "https://cdn.discordapp.com/attachments/1508515432834011160/1537230309756768256/From_Klickpin.com-_696861742315861333-pin-id-696861742315861333.gif?ex=6a9d440a&is=6a9bf28a&hm=7fd8183b5d3e247e74e27f6e3e9d85a9fbfe73349f643863474d5174e9fb5cbb&",
-    "panel_banner": "https://imgur.com/a/BZ4sB5B",
-    "role_request": "https://imgur.com/a/BZ4sB5B",
+    "panel_banner": GRAND_CITY_BANNER_URL,
+    "role_request": GRAND_CITY_BANNER_URL,
 }
 
 
@@ -540,10 +605,13 @@ class DarkNightBot(commands.Bot):
         self.add_view(RulesView())
         self.add_view(ApplyView())
         self.add_view(BoosterRolesView())
-        self.add_view(SituationRolesView())
-        self.add_view(GenderRolesView())
-        self.add_view(GamesRolesView())
         self.add_view(RoleRequestView())
+        self.add_view(RoleDecisionView())
+        self.add_view(TicketCloseView())
+        self.add_view(VIPTicketView())
+        self.add_view(GeneralTicketView())
+        self.add_view(StaffApplyTicketView())
+        self.add_view(StaffApplicationSubmitView())
         self.add_view(TweetPanelView())
         self.add_view(VoicePanelControlView())
         self.add_view(GamesCenterView())
@@ -647,6 +715,62 @@ def get_rules_embed():
     )
     embed.set_author(name="⠀" * 15 + "・Dark Night : Rules・" + "⠀" * 15)
     embed.set_image(url=IMAGES["panel_banner"])
+    return embed
+
+
+# GRAND CITY RP SERVER TAG PANEL
+def _channel_url(guild_id: int, channel_id: int) -> str:
+    return f"https://discord.com/channels/{guild_id}/{channel_id}"
+
+
+class ServerTagView(View):
+    def __init__(self, guild_id: int):
+        super().__init__(timeout=None)
+        rules_emoji = SERVER_TAG_RULES_EMOJI or None
+        join_emoji = SERVER_TAG_JOIN_EMOJI or None
+        self.add_item(Button(
+            label="Rules",
+            emoji=rules_emoji,
+            style=ButtonStyle.link,
+            url=_channel_url(guild_id, SERVER_TAG_RULES_CHANNEL_ID),
+        ))
+        self.add_item(Button(
+            label="Join To Create",
+            emoji=join_emoji,
+            style=ButtonStyle.link,
+            url=_channel_url(guild_id, SERVER_TAG_JOIN_TO_CREATE_CHANNEL_ID),
+        ))
+
+
+def _tag_line(emoji: str, text: str) -> str:
+    return f"{emoji} {text}" if emoji else text
+
+
+def get_server_tag_embed():
+    title_emoji = f"{SERVER_TAG_TITLE_EMOJI} " if SERVER_TAG_TITLE_EMOJI else ""
+    heart = f" {SERVER_TAG_HEART_EMOJI}" if SERVER_TAG_HEART_EMOJI else ""
+    desktop = f"{SERVER_TAG_DESKTOP_EMOJI} " if SERVER_TAG_DESKTOP_EMOJI else ""
+    mobile = f"{SERVER_TAG_MOBILE_EMOJI} " if SERVER_TAG_MOBILE_EMOJI else ""
+    badge = f" {SERVER_TAG_BADGE_EMOJI}" if SERVER_TAG_BADGE_EMOJI else ""
+
+    embed = discord.Embed(
+        title=f"{title_emoji}How to get Grand City RP's Tag?!",
+        description=(
+            "**Server Tag**\n"
+            "🏙️ **Grand City RP**\n\n"
+            f"• **Want the Grand City RP Tag Beside Your Username?**{heart}\n\n"
+            f"{desktop}`Desktop`\n"
+            "↪ Open **Settings** → Head to **Profile** → **Scroll until you find Server Tag** → "
+            "Hit the dropdown menu → Choose the **Grand City RP** tag\n\n"
+            f"{mobile}`Mobile`\n"
+            "↪ Tap **Edit User Profile** → **Scroll down to Server Tag** → Open the dropdown → "
+            "Pick the **Grand City RP** tag\n\n"
+            f"After choosing it, the **Grand City RP**{badge} badge will automatically display next to your name.\n\n"
+            "-# © 2026 Grand City RP. All rights reserved."
+        ),
+        color=EMBED_COLOR,
+    )
+    embed.set_image(url=SERVER_TAG_IMAGE_URL)
     return embed
 
 
@@ -829,270 +953,375 @@ def get_booster_embed():
     return embed
 
 
-# SELF ROLES PANEL
+# GRAND CITY RP ROLE REQUEST SYSTEM
+GRAND_CITY_ROLE_OPTIONS = [
+    ("Mafia Boss", "mafia_boss", "👑"), ("Mafia Agent", "mafia_agent", "🕵️"),
+    ("Chief LSPD", "chief_lspd", "🚔"), ("LSPD", "lspd", "🚓"),
+    ("Chief Sheriff", "chief_sheriff", "⭐"), ("Sheriff", "sheriff", "🤠"),
+    ("Chief EMS", "chief_ems", "🚑"), ("EMS", "ems", "🩺"),
+    ("OG Gang", "og_gang", "💀"), ("Bloods", "bloods", "🔴"),
+    ("Ballas", "ballas", "🟣"), ("Families", "families", "🟢"),
+    ("Vagos", "vagos", "🟡"), ("Lost MC", "lost_mc", "🏍️"),
+    ("Mechanic Manager", "mechanic_manager", "🔧"),
+    ("Car Dealer Manager", "car_dealer_manager", "🚘"),
+    ("Car Dealer", "car_dealer", "🚗"), ("Pizzeria Manager", "pizzeria_manager", "🍕"),
+    ("Pizzeria", "pizzeria", "🍕"), ("WhiteWidow Manager", "whitewidow_manager", "🌿"),
+    ("WhiteWidow", "whitewidow", "🌱"), ("Cat Coffee Manager", "cat_coffee_manager", "☕"),
+    ("Cat Coffee", "cat_coffee", "🐈"), ("Legal", "legal", "⚖️"), ("Illegal", "illegal", "🕶️"),
+]
 
-
-GAMES_ROLE_NAMES = {
-    "valorant": "Valorant",
-    "freefire": "Free Fire",
-    "pubg": "Pubg Mobile",
-    "chess": "chess",
-    "bloodstrike": "Blood strike",
-    "mafia_vip": "Mafia VIP 9",
-    "among_us_vip": "Among Us VIP",
-    "among_us": "Among Us",
-    "gta5": "GTA 5",
-    "minecraft": "Minecraft",
-    "pes": "Pes",
-    "roblox": "Roblox",
-    "stumble_guys": "Stumble Guys",
-    "brawlhalla": "Brawlhalla",
-    "counter_strike": "Counter Strike",
-    "league_of_legends": "League Of Legends",
-    "mafia": "Mafia",
-    "fortnite": "Fortnite",
-    "parchisi": "Parchisi",
-    "call_of_duty": "Call Of Duty",
-    "plato": "Plato",
-    "code_names": "Code Names",
-    "fifa": "FIFA",
-    "rocket_league": "Rocket league",
-}
-
-
-def _normalize_role_name(value: str) -> str:
-    return re.sub(r"[^a-z0-9]+", "", str(value).lower())
-
-
-def get_configured_role(guild: discord.Guild, role_key: str):
-    if not guild:
-        return None
-
-    role_id = ROLE_IDS.get(role_key, 0)
-    if not role_id and role_key.startswith("role_"):
-        role_id = ROLE_IDS.get(role_key[5:], 0)
-
-    if role_id:
-        role = guild.get_role(role_id)
-        if role:
-            return role
-
-    expected_name = GAMES_ROLE_NAMES.get(role_key)
-    if not expected_name and role_key.startswith("role_"):
-        expected_name = GAMES_ROLE_NAMES.get(role_key[5:])
-    if not expected_name:
-        return None
-
-    expected = _normalize_role_name(expected_name)
-    for role in guild.roles:
-        if _normalize_role_name(role.name) == expected:
-            return role
-
-    return None
-
-
-async def toggle_role(interaction: Interaction, role_key: str):
-    role = get_configured_role(interaction.guild, role_key)
-
-    if not role:
-        return await interaction.response.send_message(f"❌ Role for `{role_key}` is not configured or not found!", ephemeral=True)
-
-    if role in interaction.user.roles:
-        await interaction.user.remove_roles(role, reason=f"Self-role removal by {interaction.user} ({interaction.user.id})")
-        await interaction.response.send_message(f"➖ Removed **{role.name}**!", ephemeral=True)
-        action = "Role Removed"
-        emoji = "➖"
-    else:
-        await interaction.user.add_roles(role, reason=f"Self-role selection by {interaction.user} ({interaction.user.id})")
-        await interaction.response.send_message(f"➕ Added **{role.name}**!", ephemeral=True)
-        action = "Role Added"
-        emoji = "➕"
-
-    await send_audit_log(
-        interaction.guild,
-        title=action,
-        emoji=emoji,
-        actor=interaction.user,
-        target=role,
-        channel=interaction.channel,
-        extra_fields=[("🧩 Source", "Self-role panel", True), ("🔑 Role ID", f"`{role.id}`", True)],
+class RoleRequestModal(Modal, title="Grand City RP Role Request"):
+    what_did_you_do = TextInput(
+        label="What did you do?", placeholder="Tell us what you do in RP...",
+        style=discord.TextStyle.paragraph, max_length=500, required=True
+    )
+    with_whom = TextInput(
+        label="Who are you with?", placeholder="Gang / faction / team / people...",
+        max_length=300, required=True
+    )
+    reason = TextInput(
+        label="Reason for this role", placeholder="Why should this role be approved?",
+        style=discord.TextStyle.paragraph, max_length=500, required=True
     )
 
-class SituationRolesView(View):
-    def __init__(self):
-        super().__init__(timeout=None)
+    def __init__(self, role_key: str):
+        super().__init__()
+        self.role_key = role_key
 
-    @discord.ui.button(label="• Heartless", style=ButtonStyle.secondary, custom_id="role_heartless")
-    async def heartless(self, interaction: Interaction, button: Button):
-        await toggle_role(interaction, "role_heartless")
+    async def on_submit(self, interaction: Interaction):
+        role_id = GRAND_CITY_ROLE_IDS.get(self.role_key, 0)
+        role = None
 
-    @discord.ui.button(label="• Taken", style=ButtonStyle.secondary, custom_id="role_taken")
-    async def taken(self, interaction: Interaction, button: Button):
-        await toggle_role(interaction, "role_taken")
+        if interaction.guild and role_id:
+            # First use the cache, then fetch from Discord in case the role cache is stale.
+            role = interaction.guild.get_role(role_id)
+            if role is None:
+                try:
+                    role = await interaction.guild.fetch_role(role_id)
+                except (discord.NotFound, discord.Forbidden, discord.HTTPException):
+                    role = None
 
-    @discord.ui.button(label="• Single", style=ButtonStyle.secondary, custom_id="role_single")
-    async def single(self, interaction: Interaction, button: Button):
-        await toggle_role(interaction, "role_single")
+        if not role:
+            return await interaction.response.send_message(
+                f"❌ This RP role was not found in this server.\nRole ID: `{role_id}`",
+                ephemeral=True
+            )
 
-class GenderRolesView(View):
-    def __init__(self):
-        super().__init__(timeout=None)
+        log_channel = interaction.guild.get_channel(ROLE_REQUESTS_CHANNEL_ID) if interaction.guild else None
+        if not isinstance(log_channel, discord.TextChannel):
+            return await interaction.response.send_message("❌ Role request room was not found.", ephemeral=True)
 
-    @discord.ui.button(label="• Female", style=ButtonStyle.secondary, custom_id="role_female")
-    async def female(self, interaction: Interaction, button: Button):
-        await toggle_role(interaction, "role_female")
+        embed = discord.Embed(
+            title="📥 Grand City RP • New Role Request",
+            description=(
+                f"👤 **Applicant:** {interaction.user.mention}\n"
+                f"🎭 **Requested Role:** {role.mention}\n"
+                f"🆔 **Role ID:** `{role.id}`\n\n"
+                f"📝 **What did they do?**\n{self.what_did_you_do.value}\n\n"
+                f"👥 **Who are they with?**\n{self.with_whom.value}\n\n"
+                f"💭 **Reason**\n{self.reason.value}"
+            ),
+            color=EMBED_COLOR,
+            timestamp=datetime.now(timezone.utc),
+        )
+        embed.add_field(name="Role ID", value=f"`{role.id}`", inline=False)
+        embed.set_thumbnail(url=interaction.user.display_avatar.url)
+        embed.set_image(url=GRAND_CITY_BANNER_URL)
+        embed.set_footer(text=f"User ID: {interaction.user.id}")
+        await log_channel.send(embed=embed, view=RoleDecisionView())
+        await interaction.response.send_message("✅ Your request has been sent to the staff team.", ephemeral=True)
 
-    @discord.ui.button(label="• Male", style=ButtonStyle.secondary, custom_id="role_male")
-    async def male(self, interaction: Interaction, button: Button):
-        await toggle_role(interaction, "role_male")
-
-    @discord.ui.button(label="• Trans", style=ButtonStyle.secondary, custom_id="role_trans")
-    async def trans(self, interaction: Interaction, button: Button):
-        await toggle_role(interaction, "role_trans")
-
-class GamesRolesView(View):
-    def __init__(self):
-        super().__init__(timeout=None)
-
-    @discord.ui.select(
-        placeholder="Select A Games Role!",
-        min_values=1,
-        max_values=1,
-        options=[
-            discord.SelectOption(label="Mafia VIP 9", value="mafia_vip", emoji="🎭"),
-            discord.SelectOption(label="Among Us VIP", value="among_us_vip", emoji="🔷"),
-            discord.SelectOption(label="Among Us", value="among_us", emoji="👨‍🚀"),
-            discord.SelectOption(label="GTA 5", value="gta5", emoji="🚗"),
-            discord.SelectOption(label="Free Fire", value="freefire", emoji="🔥"),
-            discord.SelectOption(label="Valorant", value="valorant", emoji="🎮"),
-            discord.SelectOption(label="Chess", value="chess", emoji="♟️"),
-            discord.SelectOption(label="Minecraft", value="minecraft", emoji="⛏️"),
-            discord.SelectOption(label="Pes", value="pes", emoji="⚽"),
-            discord.SelectOption(label="Roblox", value="roblox", emoji="🟥"),
-            discord.SelectOption(label="Stumble Guys", value="stumble_guys", emoji="🏃"),
-            discord.SelectOption(label="Brawlhalla", value="brawlhalla", emoji="⚔️"),
-            discord.SelectOption(label="Counter Strike", value="counter_strike", emoji="🔫"),
-            discord.SelectOption(label="League Of Legends", value="league_of_legends", emoji="🏆"),
-            discord.SelectOption(label="Mafia", value="mafia", emoji="🕵️"),
-            discord.SelectOption(label="Pubg Mobile", value="pubg", emoji="🔫"),
-            discord.SelectOption(label="Blood strike", value="bloodstrike", emoji="⚔️"),
-            discord.SelectOption(label="Fortnite", value="fortnite", emoji="🪂"),
-            discord.SelectOption(label="Parchisi", value="parchisi", emoji="🎲"),
-            discord.SelectOption(label="Call Of Duty", value="call_of_duty", emoji="💥"),
-            discord.SelectOption(label="Plato", value="plato", emoji="🎯"),
-            discord.SelectOption(label="Code Names", value="code_names", emoji="🧩"),
-            discord.SelectOption(label="FIFA", value="fifa", emoji="⚽"),
-            discord.SelectOption(label="Rocket league", value="rocket_league", emoji="🚀"),
-        ],
-        custom_id="select_games_roles"
-    )
-    async def select_game_role(self, interaction: Interaction, select: Select):
-        await toggle_role(interaction, select.values[0])
-
-def get_self_roles_data():
-    e1 = discord.Embed(
-        title=f"{EMOJIS['situation']} ⋮ __Situation Roles__ ⊹",
-        description=(
-            "> ## __What's your actual situation?__\n"
-            f"> {role_mention('heartless')}\n"
-            f"> {role_mention('taken')}\n"
-            f"> {role_mention('single')}\n\n"
-            "-# © 2026 Dark Night. All rights reserved."
-        ),
-        color=EMBED_COLOR
-    )
-
-    e2 = discord.Embed(
-        title=f"{EMOJIS['gender']} ⋮ __Gender Roles__ ⊹",
-        description=(
-            "> ## __What's your gender?__\n"
-            f"> {role_mention('female')}\n"
-            f"> {role_mention('male')}\n"
-            f"> {role_mention('trans')}\n\n"
-            "-# © 2026 Dark Night. All rights reserved."
-        ),
-        color=EMBED_COLOR
-    )
-
-    e3 = discord.Embed(
-        title="🎮 ⋮ __Games Roles__ ⊹",
-        description=(
-            "> ## __Do you play any games?__\n\n"
-            "-# © 2026 Dark Night™. All rights reserved."
-        ),
-        color=EMBED_COLOR
-    )
-
-    return [
-        (e1, SituationRolesView()),
-        (e2, GenderRolesView()),
-        (e3, GamesRolesView())
-    ]
-
-
-# ROLE REQUEST PANEL
-class RoleRequestSelect(Select):
-    def __init__(self):
-        options = [
-            discord.SelectOption(label="Powers", description="Special Functionalities & Privileges", emoji="⚡", value="Powers"),
-            discord.SelectOption(label="Special Roles", description="Showcase Your Identity", emoji="💎", value="Special Roles"),
-            discord.SelectOption(label="Special Roles 2", description="Given By Owners", emoji="🎩", value="Special Roles 2"),
-            discord.SelectOption(label="Girls Roles", description="Designed Especially For Girls", emoji="🌸", value="Girls Roles"),
-            discord.SelectOption(label="Remove 1 Of Your Roles", description="Get Rid Of Cringe Roles", emoji="⭐", value="Remove 1 Of Your Roles"),
-        ]
-        super().__init__(placeholder="Select A Role Category", options=options, custom_id="role_request_dropdown")
+class GrandCityRoleSelect(Select):
+    def __init__(self, options, custom_id, placeholder):
+        super().__init__(placeholder=placeholder, min_values=1, max_values=1, options=options, custom_id=custom_id)
 
     async def callback(self, interaction: Interaction):
-        category = self.values[0]
-        timestamp = int(time.time())
-
-        await interaction.response.send_message(f"📩 Role request opened for **{category}** category!", ephemeral=True)
-
-        log_channel = interaction.guild.get_channel(APPLY_LOG_CHANNEL_ID)
-        if log_channel:
-            log_embed = discord.Embed(
-                title="📥 New Role Request",
-                description=(
-                    f"👤 **User:** {interaction.user.mention} (`{interaction.user.id}`)\n"
-                    f"🎭 **Category Requested:** `{category}`\n"
-                    f"⏰ **Time:** <t:{timestamp}:F> (<t:{timestamp}:R>)"
-                ),
-                color=0x5865F2
-            )
-            log_embed.set_thumbnail(url=interaction.user.display_avatar.url)
-            log_embed.set_footer(text="Dark Night Logging System", icon_url=interaction.guild.icon.url if interaction.guild.icon else None)
-
-            await log_channel.send(embed=log_embed)
+        await interaction.response.send_modal(RoleRequestModal(self.values[0]))
 
 class RoleRequestView(View):
     def __init__(self):
         super().__init__(timeout=None)
-        self.add_item(RoleRequestSelect())
+
+        # Police / EMS / all gang roles stay together, including Lost MC.
+        police_ems_gangs = [
+            ("Mafia Boss", "mafia_boss", "👑"), ("Mafia Agent", "mafia_agent", "🕵️"),
+            ("Chief LSPD", "chief_lspd", "🚔"), ("LSPD", "lspd", "🚓"),
+            ("Chief Sheriff", "chief_sheriff", "⭐"), ("Sheriff", "sheriff", "🤠"),
+            ("Chief EMS", "chief_ems", "🚑"), ("EMS", "ems", "🩺"),
+            ("OG Gang", "og_gang", "💀"), ("Bloods", "bloods", "🔴"),
+            ("Ballas", "ballas", "🟣"), ("Families", "families", "🟢"),
+            ("Vagos", "vagos", "🟡"), ("Lost MC", "lost_mc", "🏍️"),
+        ]
+        # Keep Lost MC with the other Gang roles above.
+        businesses_other = [
+            ("Mechanic Manager", "mechanic_manager", "🔧"),
+            ("Car Dealer Manager", "car_dealer_manager", "🚘"), ("Car Dealer", "car_dealer", "🚗"),
+            ("Pizzeria Manager", "pizzeria_manager", "🍕"), ("Pizzeria", "pizzeria", "🍕"),
+            ("WhiteWidow Manager", "whitewidow_manager", "🌿"), ("WhiteWidow", "whitewidow", "🌱"),
+            ("Cat Coffee Manager", "cat_coffee_manager", "☕"), ("Cat Coffee", "cat_coffee", "🐈"),
+            ("Legal", "legal", "⚖️"), ("Illegal", "illegal", "🕶️"),
+        ]
+
+        self.add_item(GrandCityRoleSelect(
+            [discord.SelectOption(label=n, value=k, emoji=e) for n,k,e in police_ems_gangs],
+            "grandcity_role_select_1", "🚔 Police • EMS • Gangs"
+        ))
+        self.add_item(GrandCityRoleSelect(
+            [discord.SelectOption(label=n, value=k, emoji=e) for n,k,e in businesses_other],
+            "grandcity_role_select_2", "More Grand City RP roles"
+        ))
 
 def get_role_request_embed():
     embed = discord.Embed(
-        title="◜__Dark Night's Role Request Panel__◞",
+        title="୨୧ Grand City RP • Role Request",
         description=(
-            f"## {EMOJIS['butterfly']} You’ve Officially Unlocked The Right To Beg For Some Fancy Roles :\n\n"
-            f"{EMOJIS['powers']} **| Powers**\n"
-            "⇝ Unlock Special Functionalities And Privileges Within The Server\n\n"
-            f"{EMOJIS['special']} **| Special Roles**\n"
-            "⇝ Showcase Your Identity With Distinctive And Stylish Roles\n\n"
-            f"{EMOJIS['special2']} **| Special Roles 2 (Only Given By Owners)**\n"
-            "⇝ Exclusive Titles Personally Assigned By The Server Owners\n\n"
-            f"{EMOJIS['girls']} **| Girls Roles**\n"
-            "⇝ Express Your Personality With Roles Designed Especially For Girls\n\n"
-            f"{EMOJIS['remove']} **| Remove 1 Of Your Roles**\n"
-            "⇝ Get Rid Of That Cringe Role You Picked At 3AM\n\n"
-            f"{EMOJIS['click']} | Click The Select Menu Below And Choose Category\n\n"
-            "-# **`© 2026 Dark Night™. All rights reserved.`**"
-        ),
-        color=EMBED_COLOR
+            "## 🎭 Request your RP role\n"
+            "Choose the role that matches your position in Grand City RP.\n\n"
+            "📌 **Important:** Choosing a role sends a request to the staff team. "
+            "The role is **not** given automatically.\n\n"
+            "📝 You will be asked what you do, who you are with, and why you want the role.\n\n"
+            "### Available roles\n"
+            "🚔 LSPD / Sheriff / EMS • 💀 Gangs • 🔧 Businesses • ⚖️ Legal / Illegal\n\n"
+            "-# © 2026 Grand City RP. All rights reserved."
+        ), color=EMBED_COLOR
     )
-    if IMAGES.get("role_request"):
-        embed.set_image(url=IMAGES["role_request"])
+    embed.set_image(url=GRAND_CITY_BANNER_URL)
     return embed
 
+def get_self_roles_data():
+    # Replaces the old Situation / Gender / Games self-role system with RP requests.
+    return [(get_role_request_embed(), RoleRequestView())]
+
+class RoleDecisionView(View):
+    def __init__(self):
+        super().__init__(timeout=None)
+
+    def _staff_allowed(self, interaction: Interaction):
+        return (
+            interaction.user.id == OWNER_ID
+            or (TICKET_STAFF_ROLE_ID > 0 and any(r.id == TICKET_STAFF_ROLE_ID for r in interaction.user.roles))
+        )
+
+    async def _get_request_role(self, interaction):
+        if not interaction.message.embeds:
+            return None, None
+        embed = interaction.message.embeds[0]
+        applicant_id = None
+        role_id = None
+        for field in embed.fields:
+            if field.name == "Role ID":
+                m = re.search(r"(\d+)", field.value)
+                if m: role_id = int(m.group(1))
+        footer = embed.footer.text or ""
+        m = re.search(r"User ID:\s*(\d+)", footer)
+        if m: applicant_id = int(m.group(1))
+        return applicant_id, interaction.guild.get_role(role_id) if role_id else None
+
+    @discord.ui.button(label="Accept", emoji="✅", style=ButtonStyle.success, custom_id="grandcity_role_accept")
+    async def accept(self, interaction: Interaction, button: Button):
+        if not self._staff_allowed(interaction):
+            return await interaction.response.send_message("❌ Only the Owner or configured Staff Role can decide requests.", ephemeral=True)
+        applicant_id, role = await self._get_request_role(interaction)
+        member = interaction.guild.get_member(applicant_id) if applicant_id else None
+        if not member or not role:
+            return await interaction.response.send_message("❌ Applicant or role could not be found.", ephemeral=True)
+        try:
+            await member.add_roles(role, reason=f"Grand City RP role accepted by {interaction.user}")
+            try:
+                await member.send(f"✅ **Your Grand City RP role request was accepted!**\nWelcome to **Grand City RP** ❤️\nRole: **{role.name}**")
+            except (discord.Forbidden, discord.HTTPException):
+                pass
+            await interaction.response.edit_message(content=f"✅ **Accepted by {interaction.user.mention}**", view=None)
+            await send_ticket_log(interaction.guild, "🎭 RP Role Request Accepted", interaction.user, member, f"Role: **{role.name}**")
+        except discord.Forbidden:
+            await interaction.response.send_message("❌ I cannot give this role. Check the bot's role hierarchy.", ephemeral=True)
+
+    @discord.ui.button(label="Refuse", emoji="❌", style=ButtonStyle.danger, custom_id="grandcity_role_refuse")
+    async def refuse(self, interaction: Interaction, button: Button):
+        if not self._staff_allowed(interaction):
+            return await interaction.response.send_message("❌ Only the Owner or configured Staff Role can decide requests.", ephemeral=True)
+        applicant_id, role = await self._get_request_role(interaction)
+        member = interaction.guild.get_member(applicant_id) if applicant_id else None
+        if member:
+            try:
+                await member.send(f"❌ **Your Grand City RP role request was refused.**\nRole: **{role.name if role else 'Unknown'}**\nPlease contact the staff team if you need more information.")
+            except (discord.Forbidden, discord.HTTPException):
+                pass
+        await interaction.response.edit_message(content=f"❌ **Refused by {interaction.user.mention}**", view=None)
+        await send_ticket_log(interaction.guild, "🎭 RP Role Request Refused", interaction.user, member, f"Role: **{role.name if role else 'Unknown'}**")
+
+
+# GRAND CITY RP TICKETS
+async def send_ticket_log(guild, title, actor, target=None, details=""):
+    channel = guild.get_channel(TICKET_LOG_CHANNEL_ID) if guild else None
+    if not isinstance(channel, discord.TextChannel):
+        return
+    embed = discord.Embed(title=title, description=details or "No additional details.", color=EMBED_COLOR, timestamp=datetime.now(timezone.utc))
+    embed.add_field(name="Actor", value=f"{actor.mention} (`{actor.id}`)", inline=True)
+    if target:
+        embed.add_field(name="User", value=f"{target.mention} (`{target.id}`)", inline=True)
+    embed.set_image(url=GRAND_CITY_BANNER_URL)
+    try: await channel.send(embed=embed)
+    except (discord.Forbidden, discord.HTTPException): pass
+
+async def _open_ticket(interaction: Interaction, category_id: int, prefix: str, ticket_type: str, intro: str):
+    guild = interaction.guild
+    if not guild:
+        return await interaction.response.send_message("❌ This can only be used in a server.", ephemeral=True)
+    category = guild.get_channel(category_id)
+    if not isinstance(category, discord.CategoryChannel):
+        return await interaction.response.send_message("❌ Ticket category was not found.", ephemeral=True)
+    existing = next((c for c in category.text_channels if c.topic and f"ticket-owner:{interaction.user.id}" in c.topic), None)
+    if existing:
+        return await interaction.response.send_message(f"⚠️ You already have an open ticket: {existing.mention}", ephemeral=True)
+    overwrites = {
+        guild.default_role: discord.PermissionOverwrite(view_channel=False),
+        interaction.user: discord.PermissionOverwrite(view_channel=True, send_messages=True, read_message_history=True, attach_files=True, embed_links=True),
+        guild.me: discord.PermissionOverwrite(view_channel=True, send_messages=True, manage_channels=True, read_message_history=True),
+    }
+    if TICKET_STAFF_ROLE_ID:
+        staff_role = guild.get_role(TICKET_STAFF_ROLE_ID)
+        if staff_role:
+            overwrites[staff_role] = discord.PermissionOverwrite(view_channel=True, send_messages=True, read_message_history=True, manage_channels=True)
+    name = f"{prefix}-{re.sub(r'[^a-z0-9-]', '', interaction.user.name.lower().replace(' ', '-'))[:20]}"
+    channel = await guild.create_text_channel(name=name or f"{prefix}-ticket", category=category, overwrites=overwrites, topic=f"ticket-owner:{interaction.user.id} | type:{ticket_type}", reason=f"{ticket_type} ticket opened by {interaction.user}")
+    embed = discord.Embed(title=f"🎫 {ticket_type}", description=intro, color=EMBED_COLOR, timestamp=datetime.now(timezone.utc))
+    embed.add_field(name="Opened by", value=interaction.user.mention, inline=True)
+    embed.add_field(name="Next step", value="Please explain your request clearly. Staff will assist you here.", inline=False)
+    embed.set_image(url=GRAND_CITY_BANNER_URL)
+    await channel.send(content=interaction.user.mention, embed=embed, view=TicketCloseView())
+    await interaction.response.send_message(f"✅ Ticket opened: {channel.mention}", ephemeral=True)
+    await send_ticket_log(guild, f"🎫 {ticket_type} Opened", interaction.user, details=f"Channel: {channel.mention}")
+    return channel
+
+class TicketCloseView(View):
+    def __init__(self): super().__init__(timeout=None)
+    @discord.ui.button(label="Close Ticket", emoji="🔒", style=ButtonStyle.danger, custom_id="grandcity_ticket_close")
+    async def close(self, interaction: Interaction, button: Button):
+        if not interaction.channel or not isinstance(interaction.channel, discord.TextChannel):
+            return await interaction.response.send_message("❌ Invalid ticket channel.", ephemeral=True)
+        owner_id = None
+        if interaction.channel.topic:
+            m = re.search(r"ticket-owner:(\d+)", interaction.channel.topic)
+            if m: owner_id = int(m.group(1))
+        allowed = interaction.user.id == OWNER_ID or interaction.user.id == owner_id or (TICKET_STAFF_ROLE_ID and any(r.id == TICKET_STAFF_ROLE_ID for r in interaction.user.roles))
+        if not allowed:
+            return await interaction.response.send_message("❌ You cannot close this ticket.", ephemeral=True)
+        await interaction.response.send_message("🔒 Closing ticket...", ephemeral=True)
+        await send_ticket_log(interaction.guild, "🔒 Ticket Closed", interaction.user, details=f"Channel: `{interaction.channel.name}`")
+        await asyncio.sleep(1)
+        await interaction.channel.delete(reason=f"Ticket closed by {interaction.user}")
+
+class VIPTicketView(View):
+    def __init__(self): super().__init__(timeout=None)
+    @discord.ui.button(label="Open VIP Ticket", emoji="💎", style=ButtonStyle.primary, custom_id="grandcity_open_vip_ticket")
+    async def open(self, interaction: Interaction, button: Button):
+        await _open_ticket(interaction, VIP_TICKET_CATEGORY_ID, "vip", "VIP Ticket", "Use this ticket for VIP-related requests, exclusive services, perks, or assistance.\n\n💎 **VIP Support**\nPlease provide all useful details so the team can handle your request quickly.")
+
+def get_vip_ticket_embed():
+    embed = discord.Embed(title="💎 Grand City RP • VIP Ticket", description="**VIP Support Center**\n\nUse this ticket if you need help with VIP services, VIP perks, purchases, or any VIP-related issue.\n\n> 📌 Explain your request clearly and include any useful information.\n> ⚡ A staff member will review your ticket as soon as possible.\n\nClick **Open VIP Ticket** below to create your private ticket.", color=EMBED_COLOR)
+    embed.set_image(url=GRAND_CITY_BANNER_URL)
+    return embed
+
+class GeneralTicketSelect(Select):
+    def __init__(self):
+        options = [
+            discord.SelectOption(label="Support & Reports", value="support", emoji="🎫"),
+            discord.SelectOption(label="Punishment Appeal", value="punishment", emoji="⚖️", description="Appeal a warning, ban, or other punishment."),
+            discord.SelectOption(label="Wipe Request", value="wipe", emoji="🗑️", description="Request a character or account data wipe."),
+            discord.SelectOption(label="Bug Report", value="bug", emoji="🔧", description="Report bugs, glitches, or server issues."),
+            discord.SelectOption(label="Refund Request", value="refund", emoji="💳", description="Request compensation for lost items, money, or assets."),
+            discord.SelectOption(label="Player Report", value="player", emoji="🚨", description="Report players who violate server rules."),
+            discord.SelectOption(label="Staff Report", value="staff", emoji="👮", description="Report inappropriate behavior from staff members."),
+            discord.SelectOption(label="RP Death Report", value="death", emoji="☠️", description="Report Mort RP or character death situations."),
+            discord.SelectOption(label="Partnership Request", value="partnership", emoji="🌐", description="Apply for an official community partnership."),
+            discord.SelectOption(label="General Support", value="general", emoji="📞", description="Need help? Contact the support team here."),
+        ]
+        super().__init__(placeholder="Select a category", min_values=1, max_values=1, options=options, custom_id="grandcity_general_ticket_select")
+
+    async def callback(self, interaction: Interaction):
+        ticket_data = {
+            "support": ("Support & Reports", "Support & Reports"),
+            "punishment": ("Punishment Appeal", "Appeal a warning, ban, or other punishment."),
+            "wipe": ("Wipe Request", "Request a character or account data wipe."),
+            "bug": ("Bug Report", "Report bugs, glitches, or server issues."),
+            "refund": ("Refund Request", "Request compensation for lost items, money, or assets."),
+            "player": ("Player Report", "Report players who violate server rules."),
+            "staff": ("Staff Report", "Report inappropriate behavior from staff members."),
+            "death": ("RP Death Report", "Report Mort RP or character death situations."),
+            "partnership": ("Partnership Request", "Apply for an official community partnership."),
+            "general": ("General Support", "Need help? Contact the support team here."),
+        }
+        key = self.values[0]
+        label, desc = ticket_data[key]
+        await _open_ticket(
+            interaction, GENERAL_TICKET_CATEGORY_ID, key, label,
+            f"**{label}**\n{desc}\n\nPlease describe your request in detail and attach evidence/screenshots if needed."
+        )
+
+class GeneralTicketView(View):
+    def __init__(self):
+        super().__init__(timeout=None)
+        self.add_item(GeneralTicketSelect())
+
+def get_general_ticket_embed():
+    embed = discord.Embed(
+        title="🎫 Grand City RP • General Tickets",
+        description=(
+            "**Choose the type of ticket you need from the dropdown below**\n\n"
+            "**Support & Reports**\n\n"
+            "⚖️・**Punishment Appeal**\n"
+            "Appeal a warning, ban, or other punishment.\n\n"
+            "🗑️・**Wipe Request**\n"
+            "Request a character or account data wipe.\n\n"
+            "🔧・**Bug Report**\n"
+            "Report bugs, glitches, or server issues.\n\n"
+            "💳・**Refund Request**\n"
+            "Request compensation for lost items, money, or assets.\n\n"
+            "🚨・**Player Report**\n"
+            "Report players who violate server rules.\n\n"
+            "👮・**Staff Report**\n"
+            "Report inappropriate behavior from staff members.\n\n"
+            "☠️・**RP Death Report**\n"
+            "Report Mort RP or character death situations.\n\n"
+            "🌐・**Partnership Request**\n"
+            "Apply for an official community partnership.\n\n"
+            "📞・**General Support**\n"
+            "Need help? Contact the support team here.\n\n"
+            "**Select a category and your private ticket will open automatically inside the General Ticket category.**"
+        ),
+        color=EMBED_COLOR,
+    )
+    embed.set_image(url=GRAND_CITY_BANNER_URL)
+    return embed
+
+class StaffApplyTicketView(View):
+    def __init__(self): super().__init__(timeout=None)
+    @discord.ui.button(label="Apply for Staff", emoji="🧑‍💼", style=ButtonStyle.success, custom_id="grandcity_staff_apply_open")
+    async def open(self, interaction: Interaction, button: Button):
+        await _open_ticket(interaction, STAFF_APPLY_TICKET_CATEGORY_ID, "staff-apply", "Staff Application", "Welcome to the Grand City RP Staff Application.\n\nPlease open this ticket and use **Submit Application** to provide your age, experience, active time, and why you want to join the team.")
+
+def get_staff_apply_ticket_embed():
+    embed = discord.Embed(title="🧑‍💼 Grand City RP • Staff Apply", description="Want to join the **Grand City RP Staff Team**?\n\nClick the button below to open a private application ticket.\n\n> 📝 Be honest and give complete information.\n> 👮 Staff will review your application.\n> ⏳ Please be patient after submitting.", color=EMBED_COLOR)
+    embed.set_image(url=GRAND_CITY_BANNER_URL)
+    return embed
+
+class StaffApplicationModal(Modal, title="Grand City RP • Staff Application"):
+    age = TextInput(label="Age", placeholder="e.g. 18", max_length=2, required=True)
+    experience = TextInput(label="Experience & Active Time", style=discord.TextStyle.paragraph, placeholder="Tell us about your RP/staff experience and activity...", max_length=1000, required=True)
+    reason = TextInput(label="Why should we accept you?", style=discord.TextStyle.paragraph, placeholder="Tell us why you want to join the staff team...", max_length=1000, required=True)
+    async def on_submit(self, interaction: Interaction):
+        embed = discord.Embed(title="🧑‍💼 Staff Application Submitted", description=f"👤 **Applicant:** {interaction.user.mention}\n🎂 **Age:** `{self.age.value}`\n\n🕒 **Experience & Active Time:**\n{self.experience.value}\n\n💭 **Why accept them?**\n{self.reason.value}", color=EMBED_COLOR, timestamp=datetime.now(timezone.utc))
+        embed.set_image(url=GRAND_CITY_BANNER_URL)
+        await interaction.channel.send(embed=embed)
+        await send_ticket_log(interaction.guild, "🧑‍💼 Staff Application Submitted", interaction.user, details=f"Ticket: {interaction.channel.mention}")
+        await interaction.response.send_message("✅ Application submitted. Staff will review it in this ticket.", ephemeral=True)
+
+class StaffApplicationSubmitView(View):
+    def __init__(self): super().__init__(timeout=None)
+    @discord.ui.button(label="Submit Application", emoji="📝", style=ButtonStyle.primary, custom_id="grandcity_staff_apply_submit")
+    async def submit(self, interaction: Interaction, button: Button):
+        await interaction.response.send_modal(StaffApplicationModal())
 
 
 # DARK NIGHT TWEETS
@@ -5044,8 +5273,12 @@ async def audit_voice_activity(member: discord.Member, before: discord.VoiceStat
     app_commands.Choice(name="Guild Map / Server Map", value="map"),
     app_commands.Choice(name="Apply Staff Team", value="apply"),
     app_commands.Choice(name="Booster Perks Roles", value="boosters"),
-    app_commands.Choice(name="Self Roles", value="selfroles"),
+    app_commands.Choice(name="Self Roles / Grand City RP Roles", value="selfroles"),
     app_commands.Choice(name="Role Request Panel", value="rolerequest"),
+    app_commands.Choice(name="VIP Ticket", value="vip_ticket"),
+    app_commands.Choice(name="General Ticket", value="general_ticket"),
+    app_commands.Choice(name="Staff Apply Ticket", value="staff_apply_ticket"),
+    app_commands.Choice(name="Grand City RP Server Tag", value="server_tag"),
     app_commands.Choice(name="Tweets System", value="tweets"),
     app_commands.Choice(name="Games Center", value="games"),
     app_commands.Choice(name="Voice Room Panel", value="voice_room_panel")
@@ -5072,6 +5305,14 @@ async def send_panel(interaction: Interaction, panel: str):
             await interaction.channel.send(embed=embed_obj, view=view_obj)
     elif panel == "rolerequest":
         await interaction.channel.send(embed=get_role_request_embed(), view=RoleRequestView())
+    elif panel == "vip_ticket":
+        await interaction.channel.send(embed=get_vip_ticket_embed(), view=VIPTicketView())
+    elif panel == "general_ticket":
+        await interaction.channel.send(embed=get_general_ticket_embed(), view=GeneralTicketView())
+    elif panel == "staff_apply_ticket":
+        await interaction.channel.send(embed=get_staff_apply_ticket_embed(), view=StaffApplyTicketView())
+    elif panel == "server_tag":
+        await interaction.channel.send(embed=get_server_tag_embed(), view=ServerTagView(interaction.guild.id))
     elif panel == "tweets":
         panel_channel_id = TWEET_PANEL_CHANNELS.get(interaction.guild.id) if interaction.guild else None
         if not panel_channel_id:
